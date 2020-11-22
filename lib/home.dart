@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:recipeapp/services/apihelper.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
+import 'foodpage.dart';
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -11,6 +13,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   TextEditingController _textController = TextEditingController();
   String value = '';
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,15 +55,29 @@ class _HomePageState extends State<HomePage> {
             ),
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
-              return new Card(
-                child: new GridTile(
-                    footer: Text(data.recipes[index].title != null
-                        ? data.recipes[index].title
-                        : "loading"),
-                    child: CachedNetworkImage(
-                      imageUrl: data.recipes[index].imgUrl,
-                      fit: BoxFit.cover,
-                    )),
+              return GestureDetector(
+                onTap: () {
+                  data.setCurrentIndex(index);
+                  print(data.currentIndex);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => FoodPage()));
+                },
+                child: new Card(
+                  child: new GridTile(
+                      footer: Text(data.recipes[index].title != null
+                          ? data.recipes[index].title
+                          : "loading"),
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 18.0),
+                        child: Hero(
+                          tag: 'img' + index.toString(),
+                          child: CachedNetworkImage(
+                            imageUrl: data.recipes[index].imgUrl,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      )),
+                ),
               );
             },
           )),

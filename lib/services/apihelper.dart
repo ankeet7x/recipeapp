@@ -10,6 +10,11 @@ class ApiHelper extends ChangeNotifier {
   //   this.fetchRecipes("pasta");
   // }
 
+  int currentIndex;
+  setCurrentIndex(int index) {
+    currentIndex = index;
+  }
+
   List<Recipes> recipes = [];
 
   Future<void> fetchRecipes(value) async {
