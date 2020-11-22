@@ -7,6 +7,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   TextEditingController _textController = TextEditingController();
+  String value = '';
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +25,16 @@ class _HomePageState extends State<HomePage> {
             ),
             Row(
               children: [
-                TextField(
-                  controller: _textController,
+                Expanded(
+                  child: TextField(
+                    controller: _textController,
+                  ),
                 ),
-                IconButton(icon: Icon(Icons.search), onPressed: () {})
+                IconButton(
+                    icon: Icon(Icons.search),
+                    onPressed: () {
+                      value = _textController.text;
+                    })
               ],
             )
           ],
