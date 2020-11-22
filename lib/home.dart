@@ -32,12 +32,15 @@ class _HomePageState extends State<HomePage> {
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
             ),
+            shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
               return new Card(
                 child: new GridTile(
-                  footer: Text(data.recipes[index].title),
-                  child: Text("Null"),
-                ),
+                    footer: Text(data.recipes[index].title),
+                    child: CachedNetworkImage(
+                      imageUrl: data.recipes[index].imgUrl,
+                      fit: BoxFit.cover,
+                    )),
               );
             },
           )),

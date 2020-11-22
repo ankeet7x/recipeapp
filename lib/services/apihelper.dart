@@ -19,7 +19,7 @@ class ApiHelper extends ChangeNotifier {
     var jsonData = jsonDecode(response.body);
     jsonData['results'].forEach((element) {
       Recipes recipe =
-          Recipes(title: element['title'], imgUrl: element['imgUrl']);
+          Recipes(title: element['title'], imgUrl: element['image']);
       recipes.add(recipe);
     });
     notifyListeners();
