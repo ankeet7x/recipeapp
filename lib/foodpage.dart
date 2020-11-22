@@ -19,13 +19,22 @@ class _FoodPageState extends State<FoodPage> {
             scrollDirection: Axis.vertical,
             children: [
               SizedBox(
-                height: size.height * 0.05,
+                height: size.height * 0.03,
               ),
               Hero(
                 tag: 'img' + data.currentIndex.toString(),
                 child: CachedNetworkImage(
                   imageUrl: data.recipes[data.currentIndex].imgUrl,
                   fit: BoxFit.cover,
+                ),
+              ),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    data.recipes[data.currentIndex].title,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
+                  ),
                 ),
               )
             ],
