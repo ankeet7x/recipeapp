@@ -13,6 +13,7 @@ class ApiHelper extends ChangeNotifier {
   List<Recipes> recipes = [];
 
   Future<void> fetchRecipes(value) async {
+    recipes.clear();
     String url =
         "https://api.spoonacular.com/recipes/complexSearch?query=$value&apiKey=65bbd9a31686455396738f6b5dc4ebb4";
     var response = await http.get(url);
@@ -20,6 +21,7 @@ class ApiHelper extends ChangeNotifier {
     jsonData['results'].forEach((element) {
       Recipes recipe =
           Recipes(title: element['title'], imgUrl: element['image']);
+
       recipes.add(recipe);
     });
     notifyListeners();
