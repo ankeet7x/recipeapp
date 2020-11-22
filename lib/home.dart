@@ -18,13 +18,26 @@ class _HomePageState extends State<HomePage> {
     return Consumer<ApiHelper>(
       builder: (context, data, child) => Scaffold(
           appBar: AppBar(
-            title: Text("Search for recipes"),
+            title: TextField(
+              controller: _textController,
+              onSubmitted: (val) {
+                value = _textController.text;
+              },
+            ),
             centerTitle: true,
+            actions: [
+              IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: () {
+                    value = _textController.text;
+                    data.fetchRecipes(value);
+                  })
+            ],
           ),
           floatingActionButton: FloatingActionButton(
             child: Icon(Icons.ac_unit),
             onPressed: () {
-              data.fetchRecipes();
+              data.fetchRecipes(value);
             },
           ),
           body: GridView.builder(
@@ -36,7 +49,9 @@ class _HomePageState extends State<HomePage> {
             itemBuilder: (BuildContext context, int index) {
               return new Card(
                 child: new GridTile(
-                    footer: Text(data.recipes[index].title),
+                    footer: Text(data.recipes[index].title != null
+                        ? data.recipes[index].title
+                        : "loading"),
                     child: CachedNetworkImage(
                       imageUrl: data.recipes[index].imgUrl,
                       fit: BoxFit.cover,
