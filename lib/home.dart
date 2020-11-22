@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipeapp/services/apihelper.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -26,11 +27,17 @@ class _HomePageState extends State<HomePage> {
               data.fetchRecipes();
             },
           ),
-          body: ListView.builder(
+          body: GridView.builder(
             itemCount: data.recipes.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+            ),
             itemBuilder: (BuildContext context, int index) {
-              return ListTile(
-                title: Text(data.recipes[index].title),
+              return new Card(
+                child: new GridTile(
+                  footer: Text(data.recipes[index].title),
+                  child: Text("Null"),
+                ),
               );
             },
           )),

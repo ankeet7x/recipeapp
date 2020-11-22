@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   http:
   provider:
+  cached_network_image:
 
 dev_dependencies:
   flutter_test:
